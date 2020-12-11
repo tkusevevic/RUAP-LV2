@@ -1,6 +1,6 @@
 ﻿using LV2_kusevic_API.Models;
 using LV2_kusevic_API.Services;
-using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace LV2_kusevic_API.Controllers
@@ -19,6 +19,14 @@ namespace LV2_kusevic_API.Controllers
             return contactRepository.GetAllContacts();
         }
 
+        public HttpResponseMessage Post(Contact contact)
+        {
+            this.contactRepository.SaveContact(contact);
+
+            var response = Request.CreateResponse<Contact>(System.Net.HttpStatusCode.Created, contact);
+
+            return response;
+        }
 
     }
 }
